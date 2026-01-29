@@ -1,0 +1,67 @@
+
+{% extends "layout.html" %}
+{% block title %}Exactas | Calculadora E.D.{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Ecuaciones exactas</h1>
+  <p class="muted">Formato: <code>\(M(x,y)\,dx + N(x,y)\,dy = 0\)</code></p>
+    <div class="chips">
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"M":"2*x*y","N":"x^2 + 3*y^2"}}'>\(2xy\,dx+(x^2+3y^2)\,dy=0\)</a>
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"M":"sen(y) - y*sen(x)","N":"cos(x) + x*cos(y) - y"}}'>\((\sen y-y\sen x)\,dx+(\cos x+x\cos y-y)\,dy=0\)</a>
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"M":"300x^2y-2xsen(y)+3ye^x","N":"100x^3-x^2cos(y)+3e^x"}}'>Tu ejemplo (sen y e^x)</a>
+    </div>
+  </div>
+
+  
+  <details class="examples-list">
+    <summary class="examples-btn">Lista de ejemplos</summary>
+    <div class="examples-box">
+      <div class="ex-item"><strong>Ejemplo 1:</strong> \((2xy)\,dx + (x^2+3y^2)\,dy = 0\)<br>
+        <span class="muted-sm">M: <code>2*x*y</code> &nbsp;|&nbsp; N: <code>x^2+3*y^2</code></span>
+      </div>
+      <div class="ex-item"><strong>Ejemplo 2:</strong> \((\sin y - y\sin x)\,dx + (\cos x + x\cos y - y)\,dy = 0\)<br>
+        <span class="muted-sm">M: <code>sen(y)-y*sen(x)</code> &nbsp;|&nbsp; N: <code>cos(x)+x*cos(y)-y</code></span>
+      </div>
+    </div>
+  </details>
+<form method="POST" class="form">
+    <label>M(x,y)</label>
+    <input name="M" placeholder="Ej. 2*x*y" required>
+
+    <label>N(x,y)</label>
+    <input name="N" placeholder="Ej. x^2 + 3*y^2" required>
+
+    <button class="btn" type="submit">Resolver</button>
+  </form>
+
+  {% if error %}
+    <div class="alert error">{{ error }}</div>
+  {% endif %}
+
+  {% if validacion %}
+    <div class="alert warn">
+      <div><strong>Validación:</strong> para ser exacta debe cumplirse \(\frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}\).</div>
+      <div class="math-block">\[ \frac{\partial M}{\partial y} = {{ validacion.dM_dy }} \]</div>
+      <div class="math-block">\[ \frac{\partial N}{\partial x} = {{ validacion.dN_dx }} \]</div>
+      <div class="math-block">\[ \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} = {{ validacion.diff }} \]</div>
+    </div>
+  {% endif %}
+
+  {% if resultado_latex %}
+    <div class="result">
+      <h2>Solución</h2>
+      <div class="math-block">\[ {{ resultado_latex }} \]</div>
+
+      <h3>Pasos</h3>
+      <ol class="steps">
+        {% for s in pasos %}
+          <li>
+            <div class="step-title">{{ s.t }}</div>
+            <div class="math-block">\[ {{ s.m }} \]</div>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

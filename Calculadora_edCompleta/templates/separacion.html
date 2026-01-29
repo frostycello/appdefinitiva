@@ -1,0 +1,51 @@
+
+{% extends "layout.html" %}
+{% block title %}Separación | Calculadora E.D.{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Separación de variables</h1>
+  <p class="muted">Escribe solo el <strong>RHS</strong>. Ejemplo: si tienes <code>dy/dx = x*y</code>, escribe solo <code>x*y</code>.</p>
+    <div class="chips">
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"rhs":"y"}}'>\(\frac{dy}{dx}=y\)</a>
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"rhs":"x*y"}}'>\(\frac{dy}{dx}=xy\)</a>
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"rhs":"sin(x)*y"}}'>\(\frac{dy}{dx}=\sin(x)\,y\)</a>
+      <a class="chip" href="#" data-fill='{"form":".form","values":{"rhs":"(x^2+1)/y"}}'>\(\frac{dy}{dx}=\frac{x^2+1}{y}\)</a>
+    </div>
+  </div>
+
+  
+  <details class="examples-list">
+    <summary class="examples-btn">Lista de ejemplos</summary>
+    <div class="examples-box">
+      <div class="ex-item"><strong>Ejemplo 1:</strong> <code>dy/dx = y</code> → escribe <code>y</code></div>
+      <div class="ex-item"><strong>Ejemplo 2:</strong> <code>dy/dx = sin(x)*y</code> → escribe <code>sin(x)*y</code></div>
+    </div>
+  </details>
+<form method="POST" class="form">
+    <label>RHS (en x y y)</label>
+    <input name="rhs" placeholder="Ej. y  |  x*y  |  (x^2+1)/y  |  sin(x)*y" required>
+    <button class="btn" type="submit">Resolver</button>
+  </form>
+
+  {% if error %}
+    <div class="alert error">{{ error }}</div>
+  {% endif %}
+
+  {% if resultado_latex %}
+    <div class="result">
+      <h2>Solución</h2>
+      <div class="math-block">\[ {{ resultado_latex }} \]</div>
+
+      <h3>Pasos</h3>
+      <ol class="steps">
+        {% for s in pasos %}
+          <li>
+            <div class="step-title">{{ s.t }}</div>
+            <div class="math-block">\[ {{ s.m }} \]</div>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

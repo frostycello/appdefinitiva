@@ -1,0 +1,30 @@
+
+{% extends "layout.html" %}
+{% block title %}Inicio | Calculadora E.D.{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Selecciona un método</h1>
+  <p class="muted">
+    Elige el método que necesites. Puedes escribir funciones de forma "tipo cuaderno", por ejemplo:
+    <code>300x^2y</code>, <code>sen(y)</code>, <code>e^x</code>.
+  </p>
+
+  <div class="grid-2">
+    <a class="tile" href="{{ url_for('separacion') }}">
+      <h2>Separación</h2>
+      <p>Ingresa RHS en: <code>dy/dx = RHS</code></p>
+      <p class="muted">Ej: <code>y</code>, <code>x*y</code>, <code>sin(x)*y</code></p>
+    </a>
+
+    <a class="tile" href="{{ url_for('exactas') }}">
+      <h2>Exactas</h2>
+      <p>Ingresa <code>M</code> y <code>N</code> en: <code>M dx + N dy = 0</code></p>
+      <p class="muted">Ej: <code>2xy</code> y <code>x^2+3y^2</code></p>
+    </a>
+  </div>
+
+  <div class="note">
+    <strong>Tip:</strong> Para potencias usa <code>^</code> (recomendado). También se acepta <code>**</code>.
+  </div>
+</section>
+{% endblock %}
