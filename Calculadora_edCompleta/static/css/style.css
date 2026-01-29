@@ -135,6 +135,7 @@ code{font-family: var(--mono); font-size: 0.95em; color: #fff;}
 }
 
 .examples-box{
+  color: #7fd3ff;
   margin-top:10px;
   padding:10px 12px;
   border-radius: 12px;
